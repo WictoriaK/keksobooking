@@ -21,7 +21,7 @@ const getRandomFloatNumber = (a, b, digits = 1) => {
   const upper = Math.max(Math.abs(a), Math.abs(b));
   const result = Math.random() * (upper - lower) + lower;
   return +result.toFixed(digits);
-}
+};
 
 getRandomFloatNumber(-1, 2, 1);
-getRandomPositiveInteger(1,1)
+getRandomPositiveInteger(1,1);
