@@ -23,9 +23,7 @@ const getRandomFloatNumber = (a, b, digits = 1) => {
   return +result.toFixed(digits);
 };
 
-const getRandomArrayElement = (array) => {
-  return array[getRandomPositiveInteger(0, array.length - 1)];
-}
+const getRandomArrayElement = (array) => array[getRandomPositiveInteger(0, array.length - 1)];
 
-export {getRandomPositiveInteger, getRandomArrayElement, getRandomFloatNumber}
+export {getRandomPositiveInteger, getRandomArrayElement, getRandomFloatNumber};
 
