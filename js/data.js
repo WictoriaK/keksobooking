@@ -22,7 +22,7 @@ const advertPhotos = ['https://assets.htmlacademy.ru/content/intensive/javascrip
 
 const authorsAvatars = Array.from({length: ADVERT_AMOUNT}, (_, index) => {
   const num = index + 1;
-  return `img/avatars/user${(num < 10) ? `0${num}` : `${num}`}.png`
+  return `img/avatars/user${(num < 10) ? `0${num}` : `${num}`}.png`;
 });
 
 const createAdvert = (index) => {
@@ -55,4 +55,3 @@ const createAdvert = (index) => {
 
 const createAdvertList = Array.from({length: ADVERT_AMOUNT}, (_, index) => createAdvert(index));
 
-createAdvertList;
