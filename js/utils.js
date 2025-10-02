@@ -25,5 +25,25 @@ const getRandomFloatNumber = (a, b, digits = 1) => {
 
 const getRandomArrayElement = (array) => array[getRandomPositiveInteger(0, array.length - 1)];
 
-export {getRandomPositiveInteger, getRandomArrayElement, getRandomFloatNumber};
+// склонение слов
+const numWord = (value, words) => {
+  value = Math.abs(value) % 100;
+  const num = value % 10;
+
+  if(value > 10 && value < 20) {
+    return words[2];
+  }
+
+  if(num > 1 && num < 5) {
+    return words[1];
+  }
+
+  if(num === 1) {
+    return words[0];
+  }
+
+  return words[2];
+};
+
+export {getRandomPositiveInteger, getRandomArrayElement, getRandomFloatNumber,  numWord};
 

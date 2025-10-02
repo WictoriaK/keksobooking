@@ -25,33 +25,33 @@ const authorsAvatars = Array.from({length: ADVERT_AMOUNT}, (_, index) => {
   return `img/avatars/user${(num < 10) ? `0${num}` : `${num}`}.png`;
 });
 
-const createAdvert = (index) => {
-  return {
-    author: {
-      avatar: authorsAvatars[index],
+const createAdvert = (index) => ({
+  author: {
+    avatar: authorsAvatars[index],
+  },
+  offer: {
+    title: advertTitles[index],
+    address: {
+      lat: 'location.lat',
+      lng: 'location.lng'
     },
-    offer: {
-      title: advertTitles[index],
-      address: {
-        lat: 'location.lat',
-        lng: 'location.lng'
-      },
-      price: getRandomPositiveInteger(10, 5000),
-      type: getRandomArrayElement(advertTypes),
-      rooms: getRandomPositiveInteger(1, 5),
-      guests: getRandomPositiveInteger(1, 5),
-      checkin: getRandomArrayElement(checkinTimes),
-      checkout: getRandomArrayElement(checkoutTimes),
-      features: advertFeatures.slice(getRandomPositiveInteger(0, advertFeatures.length - 1), getRandomPositiveInteger(0, advertFeatures.length - 1)),
-      description: advertDescriptions[index],
-      photos:advertPhotos.slice(getRandomPositiveInteger(0, advertPhotos.length - 1), getRandomPositiveInteger(0, advertPhotos.length - 1))
-    },
-    location: {
-      lat: getRandomFloatNumber(LOCATION_COORDINATES.LAT.min, LOCATION_COORDINATES.LAT.max),
-      lng: getRandomFloatNumber(LOCATION_COORDINATES.LNG.min, LOCATION_COORDINATES.LNG.max),
-    }
-  };
-};
+    price: getRandomPositiveInteger(10, 5000),
+    type: getRandomArrayElement(advertTypes),
+    rooms: getRandomPositiveInteger(1, 5),
+    guests: getRandomPositiveInteger(1, 5),
+    checkin: getRandomArrayElement(checkinTimes),
+    checkout: getRandomArrayElement(checkoutTimes),
+    features: advertFeatures.slice(getRandomPositiveInteger(0, advertFeatures.length - 1), getRandomPositiveInteger(0, advertFeatures.length - 1)),
+    description: advertDescriptions[index],
+    photos:advertPhotos.slice(getRandomPositiveInteger(0, advertPhotos.length - 1), getRandomPositiveInteger(0, advertPhotos.length - 1))
+  },
+  location: {
+    lat: getRandomFloatNumber(LOCATION_COORDINATES.LAT.min, LOCATION_COORDINATES.LAT.max),
+    lng: getRandomFloatNumber(LOCATION_COORDINATES.LNG.min, LOCATION_COORDINATES.LNG.max),
+  }
+});
 
-const createAdvertList = Array.from({length: ADVERT_AMOUNT}, (_, index) => createAdvert(index));
+const createAdvertList = () => Array.from({length: ADVERT_AMOUNT}, (_, index) => createAdvert(index));
 
+
+export { createAdvertList };
