@@ -44,7 +44,7 @@ const createAdvert = (index) => ({
     features: advertFeatures.slice(getRandomPositiveInteger(0, advertFeatures.length - 1), getRandomPositiveInteger(0, advertFeatures.length - 1)),
     description: advertDescriptions[index],
     photos:advertPhotos.slice(getRandomPositiveInteger(0, advertPhotos.length - 1), getRandomPositiveInteger(0, advertPhotos.length - 1))
-    },
+  },
   location: {
     lat: getRandomFloatNumber(LOCATION_COORDINATES.LAT.min, LOCATION_COORDINATES.LAT.max),
     lng: getRandomFloatNumber(LOCATION_COORDINATES.LNG.min, LOCATION_COORDINATES.LNG.max),
