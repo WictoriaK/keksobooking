@@ -35,8 +35,8 @@ const numWord = (value, words) => {
   }
 
   if(num > 1 && num < 5) {
-    return words[1]
-  };
+    return words[1];
+  }
 
   if(num === 1) {
     return words[0];
