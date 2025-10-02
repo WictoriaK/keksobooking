@@ -26,7 +26,7 @@ const getRandomFloatNumber = (a, b, digits = 1) => {
 const getRandomArrayElement = (array) => array[getRandomPositiveInteger(0, array.length - 1)];
 
 // склонение слов
-const num_word = (value, words) => {
+const numWord = (value, words) => {
   value = Math.abs(value) % 100;
   const num = value % 10;
 
@@ -43,7 +43,7 @@ const num_word = (value, words) => {
   }
 
   return words[2];
-}
+};
 
-export {getRandomPositiveInteger, getRandomArrayElement, getRandomFloatNumber,  num_word};
+export {getRandomPositiveInteger, getRandomArrayElement, getRandomFloatNumber,  numWord};
 

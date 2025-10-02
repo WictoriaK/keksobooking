@@ -1,5 +1,5 @@
 import { createAdvertList } from './data.js';
-import { num_word } from './utils.js';
+import { numWord } from './utils.js';
 
 const ApartmentTypes = {
   'flat': 'Квартира',
@@ -54,7 +54,7 @@ const renderSimilarAdverts = () => {
     advertElement.querySelector('.popup__text--address').textContent = `${offer.address.lat}${offer.address.lng}`;
     advertElement.querySelector('.popup__text--price').textContent = `${offer.price} ₽/ночь`;
     advertElement.querySelector('.popup__type').textContent = ApartmentTypes[offer.type];
-    advertElement.querySelector('.popup__text--capacity').textContent = `${offer.rooms} ${num_word(offer.rooms, ['комната', 'комнаты', 'комнат'])} для ${offer.guests} ${num_word(offer.guests, ['гостя', 'гостей', 'гостей'])}`;
+    advertElement.querySelector('.popup__text--capacity').textContent = `${offer.rooms} ${numWord(offer.rooms, ['комната', 'комнаты', 'комнат'])} для ${offer.guests} ${numWord(offer.guests, ['гостя', 'гостей', 'гостей'])}`;
     advertElement.querySelector('.popup__text--time').textContent = `Заезд после ${offer.checkin}, выезд до ${offer.checkout}`;
     advertElement.querySelector('.popup__description').textContent = offer.description;
     advertElement.querySelector('.popup__avatar').src = author.avatar;

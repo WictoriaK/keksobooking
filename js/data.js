@@ -25,8 +25,7 @@ const authorsAvatars = Array.from({length: ADVERT_AMOUNT}, (_, index) => {
   return `img/avatars/user${(num < 10) ? `0${num}` : `${num}`}.png`;
 });
 
-const createAdvert = (index) => {
-  return {
+const createAdvert = (index) => ({
     author: {
       avatar: authorsAvatars[index],
     },
@@ -50,11 +49,9 @@ const createAdvert = (index) => {
       lat: getRandomFloatNumber(LOCATION_COORDINATES.LAT.min, LOCATION_COORDINATES.LAT.max),
       lng: getRandomFloatNumber(LOCATION_COORDINATES.LNG.min, LOCATION_COORDINATES.LNG.max),
     }
-  };
-};
+  });
 
 const createAdvertList = () => Array.from({length: ADVERT_AMOUNT}, (_, index) => createAdvert(index));
-
 
 
 export { createAdvertList };
