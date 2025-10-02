@@ -53,5 +53,8 @@ const createAdvert = (index) => {
   };
 };
 
-const createAdvertList = Array.from({length: ADVERT_AMOUNT}, (_, index) => createAdvert(index));
+const createAdvertList = () => Array.from({length: ADVERT_AMOUNT}, (_, index) => createAdvert(index));
 
+
+
+export { createAdvertList };
