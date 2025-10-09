@@ -1,5 +1,5 @@
 
-import { numWord} from "./utils.js";
+
 
 const MIN_LENGTH = 30;
 const MAX_LENGTH = 100;
@@ -20,7 +20,6 @@ const roomsAndGuestsAmount = {
   100: ['0'],
 };
 
-
 const advertForm = document.querySelector('.ad-form');
 const advertFormFields = advertForm.querySelectorAll('fieldset');
 const advertTitleElement = advertForm.querySelector('#title');
@@ -30,15 +29,12 @@ const advertTimeIn = advertForm.querySelector('#timein');
 const advertTimeOut = advertForm.querySelector('#timeout');
 const advertRoomNumber = advertForm.querySelector('#room_number');
 const advertCapacity = advertForm.querySelector('#capacity');
-
 const mapFormFilters = document.querySelector('.map__filters');
 const mapFormFields = mapFormFilters.querySelectorAll('.map__filter');
 const mapFormFeatures = mapFormFilters.querySelector('.map__features');
 
 
-const setUnactiveFormFieldsState = (formFields) => formFields.forEach(field => {
-  field.disabled = true;
-});
+const setUnactiveFormFieldsState = (formFields) => formFields.forEach(field => field.disabled = true);
 
 const setUnactiveFormState = () => {
   advertForm.classList.add('.ad-form--disabled');
@@ -49,10 +45,7 @@ const setUnactiveFormState = () => {
   mapFormFeatures.disabled = true;
 };
 
-const setActiveFormFieldsState = (formFields) =>  formFields.forEach(field => {
-  field.disabled = false;
-});
-
+const setActiveFormFieldsState = (formFields) =>  formFields.forEach(field => field.disabled = false);
 
 const setActiveFormState = () => {
   advertForm.classList.remove('.ad-form--disabled');
@@ -63,15 +56,13 @@ const setActiveFormState = () => {
   mapFormFeatures.disabled = false;
 };
 
-
 // validation
-
 const pristine = new Pristine(advertForm, {
   classTo: 'ad-form__element',
   errorTextParent: 'ad-form__element',
   errorTextClass: 'ad-form-title__error-text',
   errorTextTag: 'span',
-})
+});
 
 const validateAdvertTitle = (advertTitleValue) => advertTitleValue.length >= MIN_LENGTH && advertTitleValue.length <= MAX_LENGTH;
 
@@ -118,7 +109,6 @@ const getCapacityErrorMessage = () => {
   return `Для ${rooms} ${rooms === '1' ? 'комнаты' : 'комнат'} доступно: ${allowedCapacities.join(', ')} ${guestText}`;
 };
 
-
 advertTimeIn.addEventListener('change', onTimeInChange);
 advertTimeOut.addEventListener('change', onTimeOutChange);
 
@@ -133,7 +123,6 @@ advertCapacity.addEventListener('change', () => {
 pristine.addValidator(advertTitleElement, validateAdvertTitle, 'Обязательное поле. Длинна от 30 до 100 символов');
 pristine.addValidator(advertPriceElement, validateAdvertPrice, getPriceErrorMessage);
 pristine.addValidator(advertCapacity, validateCapacity, getCapacityErrorMessage);
-
 
 
 advertForm.addEventListener('submit', (evt) => {
