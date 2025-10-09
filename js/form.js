@@ -1,6 +1,3 @@
-
-
-
 const MIN_LENGTH = 30;
 const MAX_LENGTH = 100;
 const MAX_PRICE = 100000;
@@ -34,7 +31,9 @@ const mapFormFields = mapFormFilters.querySelectorAll('.map__filter');
 const mapFormFeatures = mapFormFilters.querySelector('.map__features');
 
 
-const setUnactiveFormFieldsState = (formFields) => formFields.forEach(field => field.disabled = true);
+const setUnactiveFormFieldsState = (formFields) => formFields.forEach(field => {
+  field.disabled = true
+});
 
 const setUnactiveFormState = () => {
   advertForm.classList.add('.ad-form--disabled');
@@ -45,7 +44,9 @@ const setUnactiveFormState = () => {
   mapFormFeatures.disabled = true;
 };
 
-const setActiveFormFieldsState = (formFields) =>  formFields.forEach(field => field.disabled = false);
+const setActiveFormFieldsState = (formFields) =>  formFields.forEach(field => {
+  field.disabled = false
+});
 
 const setActiveFormState = () => {
   advertForm.classList.remove('.ad-form--disabled');
@@ -67,7 +68,7 @@ const pristine = new Pristine(advertForm, {
 const validateAdvertTitle = (advertTitleValue) => advertTitleValue.length >= MIN_LENGTH && advertTitleValue.length <= MAX_LENGTH;
 
 const validateAdvertPrice = (value) => {
-  const price = parseInt(value);
+  const price = Number(value);
   const housingType = advertHousingTypeElement.value;
 
   switch (housingType) {
@@ -90,8 +91,9 @@ const getPriceErrorMessage = () => {
   return `Цена должна быть от  ${housingTypesMinPrice[housingType]} и не больше ${MAX_PRICE}`;
 };
 
-const onTimeInChange = () => advertTimeOut.value = advertTimeIn.value;
-const onTimeOutChange = () =>  advertTimeIn.value = advertTimeOut.value;
+const syncTime = (source, target) => {
+  target.value = source.value;
+};
 
 
 const validateCapacity = () => {
@@ -109,8 +111,8 @@ const getCapacityErrorMessage = () => {
   return `Для ${rooms} ${rooms === '1' ? 'комнаты' : 'комнат'} доступно: ${allowedCapacities.join(', ')} ${guestText}`;
 };
 
-advertTimeIn.addEventListener('change', onTimeInChange);
-advertTimeOut.addEventListener('change', onTimeOutChange);
+advertTimeIn.addEventListener('change', () => syncTime(advertTimeIn, advertTimeOut));
+advertTimeOut.addEventListener('change', () => syncTime(advertTimeOut, advertTimeIn));
 
 advertRoomNumber.addEventListener('change', () => {
   pristine.validate(advertCapacity);
