@@ -33,11 +33,10 @@ const sliderElement = document.querySelector('.ad-form__slider');
 
 
 const setUnactiveFormFieldsState = (formFields) => {
-  formFields.forEach(field => {
+  formFields.forEach((field) => {
     field.disabled = true;
-  })
-
-  sliderElement.setAttribute('disabled', true);
+    sliderElement.setAttribute('disabled', true);
+  });
 };
 
 const setUnactiveFormState = () => {
@@ -52,7 +51,8 @@ const setUnactiveFormState = () => {
 const setActiveFormFieldsState = (formFields) => {
   formFields.forEach(field => {
     field.disabled = false;
-  })
+    sliderElement.setAttribute('disabled', false);
+  });
 };
 
 const setActiveFormState = () => {
@@ -73,9 +73,6 @@ const pristine = new Pristine(advertForm, {
 });
 
 const validateAdvertTitle = (advertTitleValue) => advertTitleValue.length >= MIN_LENGTH && advertTitleValue.length <= MAX_LENGTH;
-
-
-
 
 const validateAdvertPrice = (value) => {
   const price = Number(value);
@@ -105,14 +102,13 @@ const getPriceErrorMessage = () => {
 const onHousingTypeChange = () => {
   const housingType = advertHousingTypeElement.value;
   advertPriceElement.placeholder = housingTypesMinPrice[housingType];
-}
+};
 
 advertHousingTypeElement.addEventListener('change', onHousingTypeChange);
 
 const syncTime = (source, target) => {
   target.value = source.value;
 };
-
 
 const validateCapacity = () => {
   const rooms = advertRoomNumber.value;
@@ -144,7 +140,6 @@ pristine.addValidator(advertTitleElement, validateAdvertTitle, 'Обязател
 pristine.addValidator(advertPriceElement, validateAdvertPrice, getPriceErrorMessage);
 pristine.addValidator(advertCapacity, validateCapacity, getCapacityErrorMessage);
 
-
 advertForm.addEventListener('submit', (evt) => {
   evt.preventDefault();
 
@@ -157,6 +152,4 @@ advertForm.addEventListener('submit', (evt) => {
   }
 });
 
-
 export { setUnactiveFormState, setActiveFormState, housingTypesMinPrice }
-
