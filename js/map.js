@@ -1,12 +1,9 @@
 import {setUnactiveFormState, setActiveFormState} from './form.js';
 import {createAdvertList} from './data.js';
-import {numWord} from './utils.js';
-import {createAdvertPhotos, createAdvertFeatures, ApartmentTypes} from './similar-adverts.js';
+import {renderSimilarAdverts} from './similar-adverts.js';
 
 const advertForm = document.querySelector('.ad-form');
 const advertFormAddress = advertForm.querySelector('#address');
-
-const balloonTemplate = document.querySelector('#card').content.querySelector('.popup');
 
 setUnactiveFormState();
 
@@ -50,40 +47,6 @@ mainMarker.on('moveend', (evt) => {
   advertFormAddress.value = `${currentLat},${currentLng}`;
 });
 
-const createCustomPopup = (({offer, author}) => {
-  const popupElement = balloonTemplate.cloneNode(true);
-  popupElement.querySelector('.popup__title').textContent = offer.title;
-  popupElement.querySelector('.popup__text--address').textContent = `${offer.address.lat}${offer.address.lng}`;
-  popupElement.querySelector('.popup__text--price').textContent = `${offer.price} ₽/ночь`;
-  popupElement.querySelector('.popup__type').textContent = ApartmentTypes[offer.type];
-  popupElement.querySelector('.popup__text--capacity').textContent = `${offer.rooms} ${numWord(offer.rooms, ['комната', 'комнаты', 'комнат'])} для ${offer.guests} ${numWord(offer.guests, ['гостя', 'гостей', 'гостей'])}`;
-  popupElement.querySelector('.popup__text--time').textContent = `Заезд после ${offer.checkin}, выезд до ${offer.checkout}`;
-  popupElement.querySelector('.popup__description').textContent = offer.description;
-  popupElement.querySelector('.popup__avatar').src = author.avatar;
-
-  const advertFeaturesList = popupElement.querySelector('.popup__features');
-  advertFeaturesList.innerHTML = '';
-
-  if (offer.features) {
-    const newFeatureElements = createAdvertFeatures(offer.features);
-
-    advertFeaturesList.appendChild(newFeatureElements);
-  } else {
-    advertFeaturesList.remove();
-  }
-
-  const advertPhotosList = popupElement.querySelector('.popup__photos');
-  advertPhotosList.innerHTML = '';
-
-  if (offer.photos) {
-    const newPhotoElements = createAdvertPhotos(offer.photos);
-    advertPhotosList.appendChild(newPhotoElements);
-  } else {
-    advertPhotosList.remove();
-  }
-
-  return popupElement;
-});
 
 const markerGroup = L.layerGroup().addTo(map);
 
@@ -100,7 +63,7 @@ const createAdvertMarker = (advert) => {
     },
   );
 
-  marker.addTo(markerGroup).bindPopup(createCustomPopup(advert));
+  marker.addTo(markerGroup).bindPopup(renderSimilarAdverts(advert));
 };
 
 const createSimilarAdverts = () => {

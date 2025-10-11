@@ -1,5 +1,4 @@
-
-import { housingTypesMinPrice } from "./form.js";
+import {housingTypesMinPrice} from './form.js';
 
 const sliderElement = document.querySelector('.ad-form__slider');
 const advertFormPriceElement = document.querySelector('#price');

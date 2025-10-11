@@ -152,4 +152,4 @@ advertForm.addEventListener('submit', (evt) => {
   }
 });
 
-export { setUnactiveFormState, setActiveFormState, housingTypesMinPrice }
+export {setUnactiveFormState, setActiveFormState, housingTypesMinPrice};
