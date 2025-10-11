@@ -29,11 +29,15 @@ const advertCapacity = advertForm.querySelector('#capacity');
 const mapFormFilters = document.querySelector('.map__filters');
 const mapFormFields = mapFormFilters.querySelectorAll('.map__filter');
 const mapFormFeatures = mapFormFilters.querySelector('.map__features');
+const sliderElement = document.querySelector('.ad-form__slider');
 
 
-const setUnactiveFormFieldsState = (formFields) => formFields.forEach(field => {
-  field.disabled = true
-});
+const setUnactiveFormFieldsState = (formFields) => {
+  formFields.forEach((field) => {
+    field.disabled = true;
+    sliderElement.setAttribute('disabled', true);
+  });
+};
 
 const setUnactiveFormState = () => {
   advertForm.classList.add('.ad-form--disabled');
@@ -44,9 +48,12 @@ const setUnactiveFormState = () => {
   mapFormFeatures.disabled = true;
 };
 
-const setActiveFormFieldsState = (formFields) =>  formFields.forEach(field => {
-  field.disabled = false
-});
+const setActiveFormFieldsState = (formFields) => {
+  formFields.forEach(field => {
+    field.disabled = false;
+    sliderElement.setAttribute('disabled', false);
+  });
+};
 
 const setActiveFormState = () => {
   advertForm.classList.remove('.ad-form--disabled');
@@ -71,6 +78,7 @@ const validateAdvertPrice = (value) => {
   const price = Number(value);
   const housingType = advertHousingTypeElement.value;
 
+
   switch (housingType) {
     case 'bungalow':
       return price > housingTypesMinPrice[housingType] && price <= MAX_PRICE;
@@ -91,10 +99,16 @@ const getPriceErrorMessage = () => {
   return `Цена должна быть от  ${housingTypesMinPrice[housingType]} и не больше ${MAX_PRICE}`;
 };
 
+const onHousingTypeChange = () => {
+  const housingType = advertHousingTypeElement.value;
+  advertPriceElement.placeholder = housingTypesMinPrice[housingType];
+};
+
+advertHousingTypeElement.addEventListener('change', onHousingTypeChange);
+
 const syncTime = (source, target) => {
   target.value = source.value;
 };
-
 
 const validateCapacity = () => {
   const rooms = advertRoomNumber.value;
@@ -126,7 +140,6 @@ pristine.addValidator(advertTitleElement, validateAdvertTitle, 'Обязател
 pristine.addValidator(advertPriceElement, validateAdvertPrice, getPriceErrorMessage);
 pristine.addValidator(advertCapacity, validateCapacity, getCapacityErrorMessage);
 
-
 advertForm.addEventListener('submit', (evt) => {
   evt.preventDefault();
 
@@ -139,4 +152,4 @@ advertForm.addEventListener('submit', (evt) => {
   }
 });
 
-// setUnactiveFormState();
+export {setUnactiveFormState, setActiveFormState, housingTypesMinPrice};
