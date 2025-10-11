@@ -1,4 +1,3 @@
-import { createAdvertList } from './data.js';
 import { numWord } from './utils.js';
 
 const ApartmentTypes = {
@@ -12,7 +11,7 @@ const ApartmentTypes = {
 const mapCanvas = document.querySelector('.map__canvas');
 const similarAdvertTemplate = document.querySelector('#card').content.querySelector('.popup');
 
-const similarAdverts = createAdvertList();
+
 const similarAdvertFragment = document.createDocumentFragment();
 
 
@@ -88,6 +87,6 @@ const renderSimilarAdverts = () => {
 };
 
 
-export { renderSimilarAdverts };
+export { renderSimilarAdverts, createAdvertPhotos, createAdvertFeatures, ApartmentTypes };
 
 
