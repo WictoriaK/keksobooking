@@ -1,13 +1,11 @@
-import {setUnactiveFormState, setActiveFormState} from './form.js';
-import {createAdvertList} from './data.js';
+import {getData} from './api.js';
 import {renderSimilarAdverts} from './similar-adverts.js';
+import {showGetDataAlert} from './api-messages.js';
+import {setActiveFormState, mapFormFilters} from './form.js';
 
 const advertForm = document.querySelector('.ad-form');
 const advertFormAddress = advertForm.querySelector('#address');
 
-setUnactiveFormState();
-
-const similarAdverts = createAdvertList();
 
 const TOKYO_COORDINATES = {
   lat: 35.69034,
@@ -35,10 +33,11 @@ const mainMarker = L.marker(
 
 
 const pinIcon = L.icon({
-  iconUrl: './img/pin.svg',
-  iconSize: [40, 40],
-  iconAnchor: [20, 40],
-});
+    iconUrl: './img/pin.svg',
+    iconSize: [40, 40],
+    iconAnchor: [20, 40],
+  }
+);
 
 mainMarker.on('moveend', (evt) => {
   const currentCoordinates = evt.target.getLatLng();
@@ -58,7 +57,7 @@ const createAdvertMarker = (advert) => {
       lng: location.lng,
     },
     {
-      draggable: true,
+      draggable: false,
       icon: pinIcon
     },
   );
@@ -66,11 +65,24 @@ const createAdvertMarker = (advert) => {
   marker.addTo(markerGroup).bindPopup(renderSimilarAdverts(advert));
 };
 
-const createSimilarAdverts = () => {
+const createSimilarAdverts = (similarAdverts) => {
   similarAdverts.forEach((advert) => {
     createAdvertMarker(advert);
   });
 };
+
+const resetMap = () => {
+  mainMarker.setLatLng({
+    lat: TOKYO_COORDINATES.lat,
+    lng: TOKYO_COORDINATES.lng,
+  })
+
+  map.setView({
+    lat: TOKYO_COORDINATES.lat,
+    lng: TOKYO_COORDINATES.lng,
+  }, 16)
+};
+
 
 const initMap = () => {
   map.on('load', setActiveFormState)
@@ -88,9 +100,16 @@ const initMap = () => {
 
   mainMarker.addTo(map);
 
-  createSimilarAdverts();
+  getData(
+    (adverts) => createSimilarAdverts(adverts.slice(0, 10)),
+    () => {
+      showGetDataAlert('Не удалось загрузить данные. Попробуйте позже');
+      mapFormFilters.classList.add('ad-form--disabled');
+    });
 };
+
 
 initMap();
 
 
+export {resetMap}

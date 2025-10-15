@@ -1,10 +1,15 @@
-import {housingTypesMinPrice} from './form.js';
+const housingTypesMinPrice = {
+  'bungalow': 0,
+  'flat': 1000,
+  'hotel': 3000,
+  'house': 5000,
+  'palace': 10000
+};
 
 const sliderElement = document.querySelector('.ad-form__slider');
 const advertFormPriceElement = document.querySelector('#price');
 const advertHousingTypeElement = document.querySelector('#type');
 const housingStartType = advertHousingTypeElement.value;
-
 
 advertFormPriceElement.value = housingTypesMinPrice[housingStartType];
 
@@ -32,6 +37,10 @@ sliderElement.noUiSlider.on('update', () => {
   advertFormPriceElement.value = sliderElement.noUiSlider.get();
 });
 
+const resetSliderElement = () => {
+  sliderElement.noUiSlider.reset();
+};
+
 const onAdvertHousingTypeChange = () => {
   const housingType = advertHousingTypeElement.value;
 
@@ -46,3 +55,5 @@ const onAdvertHousingTypeChange = () => {
 };
 
 advertHousingTypeElement.addEventListener('change', onAdvertHousingTypeChange);
+
+export {resetSliderElement}
