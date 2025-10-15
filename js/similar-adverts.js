@@ -43,7 +43,7 @@ const renderSimilarAdverts = (({offer, author}) => {
   const popupElement = similarAdvertTemplate.cloneNode(true);
 
   popupElement.querySelector('.popup__title').textContent = offer.title;
-  popupElement.querySelector('.popup__text--address').textContent = `${offer.address.lat}${offer.address.lng}`;
+  popupElement.querySelector('.popup__text--address').textContent = `${offer.address}`;
   popupElement.querySelector('.popup__text--price').textContent = `${offer.price} ₽/ночь`;
   popupElement.querySelector('.popup__type').textContent = ApartmentTypes[offer.type];
   popupElement.querySelector('.popup__text--capacity').textContent = `${offer.rooms} ${numWord(offer.rooms, ['комната', 'комнаты', 'комнат'])} для ${offer.guests} ${numWord(offer.guests, ['гостя', 'гостей', 'гостей'])}`;
@@ -73,7 +73,7 @@ const renderSimilarAdverts = (({offer, author}) => {
   }
 
   return popupElement;
-  
+
 });
 
 

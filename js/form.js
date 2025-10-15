@@ -1,3 +1,8 @@
+import {resetSliderElement} from './price-slider.js';
+import {sendData} from './api.js';
+import {showSuccessModal, showErrorModal} from './api-messages.js';
+import {resetMap} from './map.js';
+
 const MIN_LENGTH = 30;
 const MAX_LENGTH = 100;
 const MAX_PRICE = 100000;
@@ -30,6 +35,7 @@ const mapFormFilters = document.querySelector('.map__filters');
 const mapFormFields = mapFormFilters.querySelectorAll('.map__filter');
 const mapFormFeatures = mapFormFilters.querySelector('.map__features');
 const sliderElement = document.querySelector('.ad-form__slider');
+const formResetBtn = advertForm.querySelector('.ad-form__reset');
 
 
 const setUnactiveFormFieldsState = (formFields) => {
@@ -40,8 +46,8 @@ const setUnactiveFormFieldsState = (formFields) => {
 };
 
 const setUnactiveFormState = () => {
-  advertForm.classList.add('.ad-form--disabled');
-  mapFormFilters.classList.add('.ad-form--disabled');
+  advertForm.classList.add('ad-form--disabled');
+  mapFormFilters.classList.add('ad-form--disabled');
 
   setUnactiveFormFieldsState(advertFormFields);
   setUnactiveFormFieldsState(mapFormFields);
@@ -51,13 +57,13 @@ const setUnactiveFormState = () => {
 const setActiveFormFieldsState = (formFields) => {
   formFields.forEach(field => {
     field.disabled = false;
-    sliderElement.setAttribute('disabled', false);
+    sliderElement.removeAttribute('disabled');
   });
 };
 
 const setActiveFormState = () => {
-  advertForm.classList.remove('.ad-form--disabled');
-  mapFormFilters.classList.remove('.ad-form--disabled');
+  advertForm.classList.remove('ad-form--disabled');
+  mapFormFilters.classList.remove('ad-form--disabled');
 
   setActiveFormFieldsState(advertFormFields);
   setActiveFormFieldsState(mapFormFields);
@@ -140,16 +146,35 @@ pristine.addValidator(advertTitleElement, validateAdvertTitle, 'Обязател
 pristine.addValidator(advertPriceElement, validateAdvertPrice, getPriceErrorMessage);
 pristine.addValidator(advertCapacity, validateCapacity, getCapacityErrorMessage);
 
-advertForm.addEventListener('submit', (evt) => {
-  evt.preventDefault();
 
-  const isValid = pristine.validate();
+const resetForm = () => {
+  advertForm.reset();
+  mapFormFilters.reset();
+  resetSliderElement();
+};
 
-  if (isValid) {
-    console.log('Можно отправлять');
-  } else {
-    console.log('Форма невалидна');
-  }
-});
+formResetBtn.addEventListener('click', resetForm);
 
-export {setUnactiveFormState, setActiveFormState, housingTypesMinPrice};
+const setAdvertFormSubmit = () => {
+  advertForm.addEventListener('submit', (evt) => {
+    evt.preventDefault();
+
+    const isValid = pristine.validate();
+
+    if (isValid) {
+      sendData(
+        () => {
+          showSuccessModal();
+          resetForm();
+          resetMap();
+        },
+        () => showErrorModal(),
+        new FormData(evt.target),
+      )
+
+    }
+  });
+};
+
+
+export {setUnactiveFormState, setActiveFormState, housingTypesMinPrice, setAdvertFormSubmit, mapFormFilters};
