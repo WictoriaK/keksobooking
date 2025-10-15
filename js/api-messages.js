@@ -15,16 +15,17 @@ const keydownHandlerSuccess = (evt) => {
   }
 };
 
+const closeSuccessModal = () => {
+  successPopup.remove();
+  document.removeEventListener('keydown', keydownHandlerSuccess);
+};
+
 const showSuccessModal = () => {
   document.body.appendChild(successPopup);
   document.addEventListener('keydown', keydownHandlerSuccess);
   document.addEventListener('click', closeSuccessModal);
 };
 
-const closeSuccessModal = () => {
-  successPopup.remove();
-  document.removeEventListener('keydown', keydownHandlerSuccess);
-};
 
 successPopup.addEventListener('click', closeSuccessModal);
 
@@ -36,16 +37,17 @@ const keydownHandler = (evt) => {
   }
 };
 
+const closeErrorModal = () => {
+  errorPopup.remove();
+  document.removeEventListener('keydown', keydownHandler);
+};
+
 const showErrorModal = () => {
   document.body.appendChild(errorPopup);
   document.addEventListener('keydown', keydownHandler);
   document.addEventListener('click', closeErrorModal);
 };
 
-const closeErrorModal = () => {
-  errorPopup.remove();
-  document.removeEventListener('keydown', keydownHandler);
-};
 
 closeErrorButton.addEventListener('click', closeErrorModal);
 errorPopup.addEventListener('click', closeErrorModal);

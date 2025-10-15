@@ -5,8 +5,8 @@ const getData = (onSuccess, onFail) => {
   fetch(GET_DATA_URL)
     .then(response => response.json())
     .then((data) => {
-      onSuccess(data)
-    }).catch(error => {
+      onSuccess(data);
+    }).catch(() => {
     onFail();
   });
 };
@@ -22,7 +22,7 @@ const sendData = (onSuccess, onFail, body) => {
     } else {
       onFail();
     }
-  }).catch((error) => {
+  }).catch(() => {
     onFail();
   });
 };

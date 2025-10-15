@@ -1,7 +1,7 @@
 import {getData} from './api.js';
 import {renderSimilarAdverts} from './similar-adverts.js';
 import {showGetDataAlert} from './api-messages.js';
-import {setUnactiveFormState, setActiveFormState, mapFormFilters} from './form.js';
+import {setActiveFormState, mapFormFilters} from './form.js';
 
 const advertForm = document.querySelector('.ad-form');
 const advertFormAddress = advertForm.querySelector('#address');
