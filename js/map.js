@@ -1,7 +1,6 @@
-import {getData} from './api.js';
 import {renderSimilarAdverts} from './similar-adverts.js';
-import {showGetDataAlert} from './api-messages.js';
-import {setActiveFormState, mapFormFilters} from './form.js';
+import {setActiveFormState} from './form.js';
+
 
 const advertForm = document.querySelector('.ad-form');
 const advertFormAddress = advertForm.querySelector('#address');
@@ -65,11 +64,7 @@ const createAdvertMarker = (advert) => {
   marker.addTo(markerGroup).bindPopup(renderSimilarAdverts(advert));
 };
 
-const createSimilarAdverts = (similarAdverts) => {
-  similarAdverts.forEach((advert) => {
-    createAdvertMarker(advert);
-  });
-};
+const clearMarker = () => markerGroup.clearLayers();
 
 const resetMap = () => {
   mainMarker.setLatLng({
@@ -80,7 +75,9 @@ const resetMap = () => {
   map.setView({
     lat: TOKYO_COORDINATES.lat,
     lng: TOKYO_COORDINATES.lng,
-  }, 16)
+  }, 16);
+
+  clearMarker();
 };
 
 
@@ -100,16 +97,8 @@ const initMap = () => {
 
   mainMarker.addTo(map);
 
-  getData(
-    (adverts) => createSimilarAdverts(adverts.slice(0, 10)),
-    () => {
-      showGetDataAlert('Не удалось загрузить данные. Попробуйте позже');
-      mapFormFilters.classList.add('ad-form--disabled');
-    });
+
 };
 
 
-initMap();
-
-
-export {resetMap}
+export {resetMap, clearMarker, initMap, createAdvertMarker}
