@@ -37,14 +37,12 @@ const checkHouseFeatures = (advert) => {
   const checkedFeatures = Array.from(featuresFilter).filter(feature => feature.checked).map(feature => feature.value);
 
   if (checkedFeatures.length === 0) {
-    return true
+    return true;
   }
-
 
   if (!advert.offer.features) {
-    return false
+    return false;
   }
-  ;
 
   return checkedFeatures.every(feature => advert.offer.features.includes(feature));
 };
@@ -66,4 +64,4 @@ const onFilterChange = (cb, adverts) => {
   });
 };
 
-export {onFilterChange, checkAllFilters}
+export {onFilterChange, checkAllFilters};

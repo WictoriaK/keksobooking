@@ -156,9 +156,7 @@ advertAvatarChooser.addEventListener('change', () => {
   const file = advertAvatarChooser.files[0];
   const fileName = file.name.toLowerCase();
 
-  const matches = FILE_TYPES.some((it) => {
-    return fileName.endsWith(it);
-  });
+  const matches = FILE_TYPES.some((it) => fileName.endsWith(it));
 
   if (matches) {
     advertAvatarPreview.src = URL.createObjectURL(file);
@@ -206,7 +204,6 @@ const setAdvertFormSubmit = () => {
         () => showErrorModal(),
         new FormData(evt.target),
       )
-
     }
   });
 };
