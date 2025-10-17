@@ -1,4 +1,5 @@
 import {numWord} from './utils.js';
+import {createAdvertMarker} from './map.js';
 
 const ApartmentTypes = {
   'flat': 'Квартира',
@@ -76,7 +77,13 @@ const renderSimilarAdverts = (({offer, author}) => {
 
 });
 
+const createSimilarAdverts = (similarAdverts) => {
+  similarAdverts.forEach((advert) => {
+    createAdvertMarker(advert);
+  });
+};
 
-export {renderSimilarAdverts, createAdvertPhotos, createAdvertFeatures, ApartmentTypes};
+
+export {renderSimilarAdverts, createAdvertPhotos, createAdvertFeatures, ApartmentTypes, createSimilarAdverts};
 
 

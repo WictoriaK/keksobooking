@@ -6,6 +6,7 @@ import {resetMap} from './map.js';
 const MIN_LENGTH = 30;
 const MAX_LENGTH = 100;
 const MAX_PRICE = 100000;
+const FILE_TYPES = ['gif', 'jpg', 'jpeg', 'png', 'webp', 'avif'];
 
 const housingTypesMinPrice = {
   'bungalow': 0,
@@ -36,6 +37,10 @@ const mapFormFields = mapFormFilters.querySelectorAll('.map__filter');
 const mapFormFeatures = mapFormFilters.querySelector('.map__features');
 const sliderElement = document.querySelector('.ad-form__slider');
 const formResetBtn = advertForm.querySelector('.ad-form__reset');
+const advertAvatarChooser = advertForm.querySelector('#avatar');
+const advertAvatarPreview = advertForm.querySelector('.ad-form-header__preview img');
+const advertPhotoChooser = advertForm.querySelector('#images');
+const advertPhotoPreview = advertForm.querySelector('.ad-form__drop-zone');
 
 
 const setUnactiveFormFieldsState = (formFields) => {
@@ -147,6 +152,34 @@ pristine.addValidator(advertPriceElement, validateAdvertPrice, getPriceErrorMess
 pristine.addValidator(advertCapacity, validateCapacity, getCapacityErrorMessage);
 
 
+advertAvatarChooser.addEventListener('change', () => {
+  const file = advertAvatarChooser.files[0];
+  const fileName = file.name.toLowerCase();
+
+  const matches = FILE_TYPES.some((it) => fileName.endsWith(it));
+
+  if (matches) {
+    advertAvatarPreview.src = URL.createObjectURL(file);
+  }
+});
+
+advertPhotoChooser.addEventListener('change', () => {
+  advertPhotoPreview.innerHTML = '';
+
+  const file = advertPhotoChooser.files[0];
+  const image = document.createElement('img');
+  image.src = URL.createObjectURL(file);
+  image.width = 150;
+  image.height = 70;
+  image.style.objectFit = 'cover';
+  image.alt = 'Фото жилья';
+
+
+  advertPhotoPreview.insertAdjacentElement('beforebegin', image);
+  advertPhotoPreview.style.display = 'none';
+
+});
+
 const resetForm = () => {
   advertForm.reset();
   mapFormFilters.reset();
@@ -171,7 +204,6 @@ const setAdvertFormSubmit = () => {
         () => showErrorModal(),
         new FormData(evt.target),
       )
-
     }
   });
 };

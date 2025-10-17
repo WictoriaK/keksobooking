@@ -4,11 +4,8 @@ const SEND_DATA_URL = 'https://25.javascript.htmlacademy.pro/keksobooking';
 const getData = (onSuccess, onFail) => {
   fetch(GET_DATA_URL)
     .then(response => response.json())
-    .then((data) => {
-      onSuccess(data);
-    }).catch(() => {
-    onFail();
-  });
+    .then(data => onSuccess(data))
+    .catch(() => onFail());
 };
 
 const sendData = (onSuccess, onFail, body) => {
@@ -27,4 +24,4 @@ const sendData = (onSuccess, onFail, body) => {
   });
 };
 
-export {getData, sendData}
+export {getData, sendData};
